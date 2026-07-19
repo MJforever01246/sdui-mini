@@ -1,0 +1,13 @@
+# Ignore build outputs but keep dist publish artifact instructions
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.idea/
+*.iml
+*.log
