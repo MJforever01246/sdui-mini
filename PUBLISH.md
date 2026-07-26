@@ -1,83 +1,42 @@
 # Publish bundle lên GitHub + Super tải OTA
 
-## Trạng thái hiện tại
+## Trạng thái
 
-- Bundle **đã có**: `publish/bundle.json` (~4.6KB)
-- `publish/` **không** bị `.gitignore` — sẽ được push cùng repo
-- Chưa có remote / chưa commit (cả `mini` và `super`)
+| Hạng mục | Giá trị |
+|----------|---------|
+| Repo mini (author + artifact) | https://github.com/MJforever01246/sdui-mini |
+| Repo super (host) | https://github.com/MJforever01246/sdui-super |
+| **Public OTA URL** | https://raw.githubusercontent.com/MJforever01246/sdui-mini/main/publish/bundle.json |
 
----
-
-## A. Tạo 2 repo trống trên GitHub (web)
-
-1. Vào https://github.com/new  
-2. Tạo **public** repo, ví dụ:
-   - `sdui-mini` (không tick “Add README”)
-   - `sdui-super` (không tick “Add README”)
-3. Giữ URL dạng:
-   - `https://github.com/<USER>/sdui-mini.git`
-   - `https://github.com/<USER>/sdui-super.git`
+Super Host đã prefill URL trên. Mở app → **Open from URL**.
 
 ---
 
-## B. Push repo **mini** (có bundle)
-
-Mở PowerShell:
+## Local public-link (không cần GitHub)
 
 ```powershell
 $env:PATH = "C:\Users\Admin\flutter\bin;$env:PATH"
 cd C:\Users\Admin\sdui-demo\mini
-
-# (tuỳ chọn) export lại bundle mới nhất
-dart run tool/export.dart
-
-git add .
-git commit -m "Initial SDUI mini author and publish bundle"
-
-# Thay <USER> bằng GitHub username của bạn
-git branch -M main
-git remote add origin https://github.com/<USER>/sdui-mini.git
-git push -u origin main
+dart run tool/export_bundle.dart
+cd publish
+python -m http.server 8080
 ```
 
-Nếu GitHub hỏi đăng nhập: dùng Personal Access Token (Settings → Developer settings → PAT) làm mật khẩu HTTPS, hoặc SSH.
+Trong Super: `http://127.0.0.1:8080/bundle.json`  
+Điện thoại: dùng IP LAN; Android emulator: `10.0.2.2`.
 
 ---
 
-## C. Push repo **super**
-
-```powershell
-cd C:\Users\Admin\sdui-demo\super
-
-git add .
-git commit -m "Initial SDUI super host"
-
-git branch -M main
-git remote add origin https://github.com/<USER>/sdui-super.git
-git push -u origin main
-```
-
----
-
-## D. URL Super tải bundle (hoàn thiện concept OTA)
-
-Sau khi `mini` đã push, URL raw ổn định:
-
-```text
-https://raw.githubusercontent.com/<USER>/sdui-mini/main/publish/bundle.json
-```
-
-Trong Super: dán URL này → **Open from URL**.
-
-Kiểm tra nhanh trên trình duyệt: mở link trên phải thấy JSON (`"id": "ck-mini"`).
-
----
-
-## E. Quy trình OTA sau này
+## Quy trình OTA
 
 1. Sửa `lib/bundle/definition.dart` trong mini  
-2. `dart run tool/export.dart` (hoặc Export trong app)  
-3. `git add publish/bundle.json && git commit -m "Bump mini bundle" && git push`  
-4. Super bấm **Open from URL** lại (không cần rebuild Super)
+2. `dart run tool/export_bundle.dart --version 1.0.x`  
+3. `git add publish && git commit -m "Bump mini bundle" && git push`  
+4. Super bấm **Open from URL** lại (không rebuild Super)
 
-Lưu ý: raw.githubusercontent.com đôi khi cache vài phút; đổi `version` trong bundle để dễ nhận ra bản mới.
+`raw.githubusercontent.com` có thể cache vài phút — tăng `version` trong bundle để nhận bản mới dễ hơn.
+
+## Mirror trên sdui-super
+
+`super/publish/bundle.json` là bản mirror mẫu (offline / raw trên repo host).
+**Nguồn sự thật** vẫn là `sdui-mini/publish/bundle.json`.

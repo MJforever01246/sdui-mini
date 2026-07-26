@@ -2,6 +2,8 @@
 
 Author mini screens in Dart, preview with the same Flutter renderer, export `publish/bundle.json` for Super OTA.
 
+Tài liệu kiến trúc / demo / publish: [`../docs/`](../docs/README.md).
+
 ## Edit
 
 `lib/bundle/definition.dart`
