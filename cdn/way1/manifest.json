@@ -1,0 +1,8 @@
+{
+  "name": "@kbbuddy/mini-app-webview",
+  "version": "0.1.0",
+  "contractVersion": "1.0",
+  "modules": ["register", "ekyc", "order"],
+  "locales": ["vi", "en", "ko"],
+  "entry": "index.html"
+}

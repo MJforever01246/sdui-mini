@@ -1,0 +1,38 @@
+{
+  "platform": "kbsv-mini-platform-poc",
+  "note": "Mock Mini App Center. preferred=remote trên GitHub/jsDelivr — không cần Python http.server.",
+  "delivery": {
+    "preferred": "remote",
+    "remoteRegistryUrl": "https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way3/registry.json",
+    "defaultBaseUrl": "https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way3"
+  },
+  "minis": [
+    {
+      "appId": "register",
+      "name": "Đăng ký mở tài khoản",
+      "enabled": true,
+      "liveVersion": "1.1.0",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "path": "bundles/register/1.0.0",
+          "baseUrl": "https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way3/bundles/register/1.0.0",
+          "status": "retired"
+        },
+        {
+          "version": "1.1.0",
+          "path": "bundles/register/1.1.0",
+          "baseUrl": "https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way3/bundles/register/1.1.0",
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "appId": "order",
+      "name": "Đặt lệnh",
+      "enabled": false,
+      "liveVersion": null,
+      "versions": []
+    }
+  ]
+}

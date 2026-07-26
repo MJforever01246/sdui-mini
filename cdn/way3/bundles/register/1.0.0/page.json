@@ -1,0 +1,35 @@
+{
+  "title": "Mini · Đăng ký",
+  "subtitle": "KB Securities × register@1.0.0",
+  "fields": [
+    {
+      "id": "fullName",
+      "type": "text",
+      "label": "Họ và tên (*)",
+      "required": true
+    },
+    {
+      "id": "phone",
+      "type": "phone",
+      "label": "Số điện thoại (*)",
+      "required": true,
+      "minLength": 10
+    },
+    {
+      "id": "branch",
+      "type": "select",
+      "label": "Chi nhánh (*)",
+      "required": true,
+      "options": [
+        { "value": "HCM", "label": "TP. Hồ Chí Minh" },
+        { "value": "HN", "label": "Hà Nội" },
+        { "value": "DN", "label": "Đà Nẵng" }
+      ]
+    }
+  ],
+  "submitLabel": "Tiếp theo",
+  "onSubmit": {
+    "capability": "mini.submitResult",
+    "payloadKeys": ["fullName", "phone", "branch"]
+  }
+}

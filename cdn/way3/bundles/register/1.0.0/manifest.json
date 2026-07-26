@@ -1,0 +1,9 @@
+{
+  "appId": "register",
+  "name": "Đăng ký mở tài khoản",
+  "version": "1.0.0",
+  "entry": "page.json",
+  "permissions": ["mini.submitResult", "host.getPartnerId"],
+  "checksumSha256": "87f5f461f1a9dfaa0dd1f4b32fae92a5da6d3f2b89a1bc8d5146d0fd7e9f8002",
+  "signatureHmacSha256": "ec2452ec093b94f17f80a164b59b0d61f3466e8bf2b7ae99bc7a070aa00198dd"
+}

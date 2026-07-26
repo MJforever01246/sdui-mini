@@ -1,42 +1,40 @@
-# Publish bundle lên GitHub + Super tải OTA
+# Publish mini lên GitHub (không dùng Python)
 
-## Trạng thái
+## Nguyên tắc
 
-| Hạng mục | Giá trị |
-|----------|---------|
-| Repo mini (author + artifact) | https://github.com/MJforever01246/sdui-mini |
-| Repo super (host) | https://github.com/MJforever01246/sdui-super |
-| **Public OTA URL** | https://raw.githubusercontent.com/MJforever01246/sdui-mini/main/publish/bundle.json |
+| Trước | Nay |
+|-------|-----|
+| `python -m http.server` local | **git push** lên `sdui-mini` |
+| Super dán `http://127.0.0.1:8080/...` | Super dán **jsDelivr / raw.githubusercontent.com** |
 
-Super Host đã prefill URL trên. Mở app → **Open from URL**.
+Host file tĩnh = GitHub (+ jsDelivr CDN).
 
----
+## Map thư mục → URL
 
-## Local public-link (không cần GitHub)
+| Artifact | Path trong repo | URL Super dùng |
+|----------|-----------------|----------------|
+| SDUI bundle | `publish/bundle.json` | `https://raw.githubusercontent.com/MJforever01246/sdui-mini/main/publish/bundle.json` |
+| Cách 3 registry | `cdn/way3/registry.json` | `https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way3/registry.json` |
+| Cách 3 bundles | `cdn/way3/bundles/...` | base `.../cdn/way3` |
+| Cách 1 WebView | `cdn/way1/index.html` | `https://cdn.jsdelivr.net/gh/MJforever01246/sdui-mini@main/cdn/way1/index.html?...` |
+| Cách 2 package | `packages/way2_mini_register/` | git dependency trong `pubspec.yaml` Super |
+
+## Checklist push
 
 ```powershell
-$env:PATH = "C:\Users\Admin\flutter\bin;$env:PATH"
-cd C:\Users\Admin\sdui-demo\mini
-dart run tool/export_bundle.dart
-cd publish
-python -m http.server 8080
+cd <clone-sdui-mini>
+git add cdn publish packages
+git status
+git commit -m "Publish mini artifacts"
+git push origin main
 ```
 
-Trong Super: `http://127.0.0.1:8080/bundle.json`  
-Điện thoại: dùng IP LAN; Android emulator: `10.0.2.2`.
+Đợi ~1–2 phút nếu jsDelivr cache; tăng `version` trong bundle/registry để nhận bản mới dễ hơn.
 
----
+## Super tương ứng
 
-## Quy trình OTA
+Repo: https://github.com/MJforever01246/sdui-super
 
-1. Sửa `lib/bundle/definition.dart` trong mini  
-2. `dart run tool/export_bundle.dart --version 1.0.x`  
-3. `git add publish && git commit -m "Bump mini bundle" && git push`  
-4. Super bấm **Open from URL** lại (không rebuild Super)
-
-`raw.githubusercontent.com` có thể cache vài phút — tăng `version` trong bundle để nhận bản mới dễ hơn.
-
-## Mirror trên sdui-super
-
-`super/publish/bundle.json` là bản mirror mẫu (offline / raw trên repo host).
-**Nguồn sự thật** vẫn là `sdui-mini/publish/bundle.json`.
+- SDUI host (root): Open from URL → SDUI bundle
+- `apps/platform_host`: Online URL → Cách 3 registry (prefill GitHub)
+- `apps/way2_host`: depend git `way2_mini_register`

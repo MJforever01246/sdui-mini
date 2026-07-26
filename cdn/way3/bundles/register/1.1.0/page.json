@@ -1,0 +1,46 @@
+{
+  "title": "Mini · Đăng ký",
+  "subtitle": "KB Securities × register@1.1.0 (canary)",
+  "banner": "Bản 1.1.0 — thêm email + toast sandbox",
+  "fields": [
+    {
+      "id": "fullName",
+      "type": "text",
+      "label": "Họ và tên (*)",
+      "required": true
+    },
+    {
+      "id": "phone",
+      "type": "phone",
+      "label": "Số điện thoại (*)",
+      "required": true,
+      "minLength": 10
+    },
+    {
+      "id": "email",
+      "type": "text",
+      "label": "Email",
+      "required": false
+    },
+    {
+      "id": "branch",
+      "type": "select",
+      "label": "Chi nhánh (*)",
+      "required": true,
+      "options": [
+        { "value": "HCM", "label": "TP. Hồ Chí Minh" },
+        { "value": "HN", "label": "Hà Nội" },
+        { "value": "DN", "label": "Đà Nẵng" }
+      ]
+    }
+  ],
+  "submitLabel": "Gửi đăng ký",
+  "onSubmit": {
+    "capability": "mini.submitResult",
+    "payloadKeys": ["fullName", "phone", "email", "branch"]
+  },
+  "onOpen": {
+    "capability": "ui.showToast",
+    "args": { "message": "Loaded register 1.1.0 via runtime" }
+  }
+}
